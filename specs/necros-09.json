@@ -1,0 +1,84 @@
+{
+  "height": 3.1,
+  "palette": {
+    "gel_body": {"color":"#526f36","rough":0.22},
+    "gel_dark": {"color":"#263d2b","rough":0.3},
+    "bone": {"color":"#b8b59a","rough":0.82},
+    "flesh": {"color":"#71564b","rough":0.72},
+    "core": {"color":"#c8ff31","rough":0.18},
+    "eye": {"color":"#eaff78","rough":0.15},
+    "claw": {"color":"#353b2b","rough":0.35}
+  },
+  "smooth_angle": 48,
+  "shading": {
+    "pattern": {"color":"#8acb36","sharpness":0.36,"amount":0.35,"scale":0.09},
+    "stack": true
+  },
+  "joints": {
+    "Hips": [0, 1.05, 0],
+    "Spine": {"from":"Hips","up":0.42},
+    "Chest": {"from":"Spine","up":0.48},
+    "Neck": {"from":"Chest","up":0.3},
+    "Head": {"from":"Neck","up":0.22},
+    "Brow": {"from":"Head","up":0.08},
+    "LSh": {"from":"Chest","side":0.34,"up":0.16},
+    "LElbow": {"from":"LSh","side":0.38,"up":-0.16},
+    "LWrist": {"from":"LElbow","side":0.32,"up":-0.24},
+    "LHip": {"from":"Hips","side":0.22,"up":-0.05},
+    "LKnee": {"from":"LHip","side":0.02,"up":-0.48},
+    "LAnkle": {"from":"LKnee","up":-0.43},
+    "LToe": {"from":"LAnkle","fwd":0.16,"ground":0.03},
+    "Core": {"from":"Chest","up":-0.02,"fwd":0.27},
+    "TailRoot": {"from":"Hips","up":0.1,"fwd":-0.25},
+    "TailMid": {"from":"TailRoot","up":-0.1,"fwd":-0.42},
+    "TailTip": {"from":"TailMid","up":-0.18,"fwd":-0.4},
+    "LSpineHook": {"from":"Chest","side":0.2,"up":0.12,"fwd":-0.16},
+    "RSpineHook": {"from":"Chest","side":-0.2,"up":0.12,"fwd":-0.16}
+  },
+  "chains": {
+    "torso": ["Hips","Spine","Chest"],
+    "neck": ["Chest","Neck","Head"],
+    "LArm": ["LSh","LElbow","LWrist"],
+    "LLeg": ["LHip","LKnee","LAnkle","LToe"],
+    "tail": ["TailRoot","TailMid","TailTip"]
+  },
+  "attach": {
+    "neck":"Chest",
+    "LArm":"Chest",
+    "LLeg":"Hips",
+    "tail":"Hips"
+  },
+  "mirror": ["LArm","LLeg"],
+  "touch": [["torso","neck"],["torso","LArm"],["torso","LLeg"],["torso","tail"]],
+  "function": {
+    "torso":"axis",
+    "neck":"axis",
+    "LArm":"locomotion",
+    "LLeg":"locomotion",
+    "tail":"effector"
+  },
+  "volumes": [
+    {"chain":"torso","material":"gel_body","sides":16,"frame":"up","soft":true,"profile":[[0,0.32,0.34],[0.28,0.44,0.5,{"bias":-0.12}],[0.62,0.4,0.44],[0.84,0.31,0.34],[1,0.24,0.27]]},
+    {"chain":"neck","material":"gel_dark","sides":12,"frame":"up","soft":true,"profile":[[0,0.23,0.22],[0.55,0.19,0.2],[1,0.22,0.2]]},
+    {"chain":"LArm","material":"gel_body","sides":12,"frame":"up","soft":true,"profile":[[0,0.19,0.2],[0.4,0.16,0.17],[0.72,0.13,0.14],[1,0.1,0.11]]},
+    {"chain":"LLeg","material":"gel_dark","sides":12,"frame":"up","soft":true,"profile":[[0,0.24,0.23],[0.42,0.2,0.21],[0.75,0.15,0.16],[1,0.13,0.12]]},
+    {"chain":"tail","material":"gel_body","sides":10,"frame":"up","soft":true,"profile":[[0,0.17,0.17],[0.4,0.13,0.13],[0.75,0.08,0.08],[1,0.025,0.025]]}
+  ],
+  "parts": [
+    {"name":"left_hand_claw","type":"hand","host":"LWrist","material":"claw","size":0.22,"dir":[0.15,-0.9,0.35],"up":[0,0,1],"curl":0.5,"spread":0.62,"join":"extrude","mirrored":true},
+    {"name":"left_shoulder_bone","type":"curve","host":"LSh","material":"bone","mirrored":true,"join":"insert","offset":[0.1,0.08,-0.02],"dir":[0.7,0.45,-0.2],"sides":7,"segments":[{"len":0.22,"r":0.075,"ahead":18},{"len":0.18,"r":0.05,"rise":28,"taper":true}]},
+    {"name":"left_rib_fragment","type":"curve","host":"Chest","material":"bone","join":"insert","offset":[0.18,-0.05,0.18],"dir":[0.2,-0.1,1],"sides":7,"segments":[{"len":0.25,"r":0.045,"ahead":35},{"len":0.22,"r":0.03,"rise":12,"taper":true}]},
+    {"name":"right_rib_fragment","type":"curve","host":"Chest","material":"bone","join":"insert","offset":[-0.18,-0.12,0.16],"dir":[-0.2,-0.1,1],"sides":7,"segments":[{"len":0.22,"r":0.045,"ahead":-30},{"len":0.18,"r":0.028,"rise":-15,"taper":true}]},
+    {"name":"skull_shard","type":"fin","host":"Head","material":"bone","thickness":0.055,"join":"insert","offset":[0.06,0.04,0.12],"udir":[1,0,0],"vdir":[0,1,0],"points":[[0,0],[0.15,0.02],[0.12,0.16],[0.04,0.2],[-0.02,0.08]],"faceted":true},
+    {"name":"glowing_core","type":"eye","host":"Core","material":"core","size":0.24,"anchor":{"chain":"torso","t":0.72,"around":180}},
+    {"name":"left_glow_eye","type":"eye","host":"Brow","material":"eye","size":0.055,"anchor":{"chain":"neck","t":0.8,"around":58}},
+    {"name":"tentacle_hook_left","type":"curve","host":"LSpineHook","material":"gel_dark","join":"extrude","offset":[0,0,0],"dir":[0.5,-0.3,-0.7],"sides":8,"segments":[{"len":0.38,"r":0.09,"ahead":18},{"len":0.32,"r":0.065,"rise":-25},{"len":0.26,"r":0.025,"rise":-35,"taper":true}]},
+    {"name":"tentacle_hook_right","type":"curve","host":"RSpineHook","material":"gel_dark","join":"extrude","offset":[0,0,0],"dir":[-0.5,-0.3,-0.7],"sides":8,"segments":[{"len":0.35,"r":0.085,"ahead":-18},{"len":0.3,"r":0.06,"rise":-22},{"len":0.24,"r":0.025,"rise":-32,"taper":true}]}
+  ],
+  "animations": {
+    "idle": {"duration":2.4,"loop":true,"tracks":{"Spine":{"rx":[[0,-2],[0.5,2],[1,-2]]},"TailRoot":{"ry":[[0,-12],[0.5,14],[1,-12]]},"TailMid":{"ry":[[0,10],[0.5,-14],[1,10]]},"Head":{"rx":[[0,2],[0.5,-2],[1,2]]}}},
+    "move": {"duration":1.1,"loop":true,"mirror_phase":0.5,"tracks":{"LHip":{"rx":[[0,-22],[0.5,22],[1,-22]]},"LKnee":{"rx":[[0,10],[0.5,35],[1,10]]},"LSh":{"rx":[[0,18],[0.5,-18],[1,18]]},"LElbow":{"rx":[[0,-8],[0.5,18],[1,-8]]},"TailRoot":{"ry":[[0,-18],[0.5,18],[1,-18]]}}},
+    "attack": {"duration":0.8,"loop":false,"tracks":{"LSh":{"rx":[[0,0],[0.25,-38],[0.55,48],[1,0]]},"LElbow":{"rx":[[0,0],[0.25,-25],[0.55,55],[1,0]]},"Spine":{"rx":[[0,0],[0.35,-8],[0.65,12],[1,0]]},"TailRoot":{"ry":[[0,0],[0.3,-25],[0.65,30],[1,0]]}}}
+  },
+  "keep_uv": true
+}
